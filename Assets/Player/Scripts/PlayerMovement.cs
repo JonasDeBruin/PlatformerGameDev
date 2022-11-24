@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //Conponents
-    private Rigidbody2D rb2d;
+    [SerializeField] private Rigidbody2D rb2d;
+    [SerializeField] private BoxCollider2D groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
     //MOVEMENT
     public float speed = 10;
@@ -12,22 +14,25 @@ public class PlayerMovement : MonoBehaviour
     //Jumping
     float jump;
     float jumpTime = 0.5f;
-    public float maxJumpTime = 0.5f;
-    public bool grounded;
-    bool doubleJump = true;
+    [SerializeField] private int jumpForce = 10;
+    [SerializeField] private float maxJumpTime = 0.5f;
+    private bool isGrounded;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DirectionalMovement();
         Jumping();
+    }
+
+    private void FixedUpdate()
+    {
+        DirectionalMovement();
     }
 
     void DirectionalMovement()
@@ -39,17 +44,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Jumping()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb2d.AddForce(Vector2.up * jumpForce * 200);
+        }
+        
         jump = Input.GetAxis("Jump");
-        if (jump == 1)
+
+        if (jump == 1 && !isGrounded)
         {
             jumpTime -= Time.deltaTime;
-
+        
             Debug.Log(jumpTime);
-            Debug.Log(doubleJump);
-
+        
             if (jumpTime > 0)
             {
-                rb2d.AddForce(transform.up, ForceMode2D.Impulse);
+                rb2d.AddForce(transform.up * 1.4f, ForceMode2D.Impulse);
             }
         }
     }
@@ -58,16 +68,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == 6)
         {
-            grounded = true;
+            isGrounded = true;
             jumpTime = maxJumpTime;
-            doubleJump = true;
         }
     }
     void OnCollisionExit2D(Collision2D Collider)
     {
         if (Collider.gameObject.layer == 6)
         {
-            grounded = false;
+            isGrounded = false;
         }
     }
 
