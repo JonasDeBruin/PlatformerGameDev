@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Conponents
     [SerializeField] private Rigidbody2D rb2d;
-    [SerializeField] private BoxCollider2D groundCheck;
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
     //MOVEMENT
@@ -18,15 +18,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxJumpTime = 0.5f;
     private bool isGrounded;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
         Jumping();
     }
 
