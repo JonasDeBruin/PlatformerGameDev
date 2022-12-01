@@ -6,6 +6,7 @@ public class Shooting : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform shootLoc;
+
     [SerializeField] private BoxCollider2D playerCollision;
     [SerializeField] private CircleCollider2D bulletCollision;
 
@@ -18,8 +19,11 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            //Create bullet
             Instantiate(bullet, shootLoc.position, Quaternion.identity);
             Physics2D.IgnoreCollision(bulletCollision, playerCollision);
+
+            //Create audio
             Instantiate(fireAudio, transform.position, Quaternion.identity);
         }
     }
