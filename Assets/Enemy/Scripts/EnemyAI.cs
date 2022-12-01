@@ -12,6 +12,18 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private GameObject deathSound;
 
+    private void Start()
+    {
+        if (Random.Range(1, 3) == 1)
+        {
+            dirX = -1;        
+        }
+        else
+        {
+            dirX = 1;
+        }
+
+    }
     private void FixedUpdate()
     {
         if (!dead)
