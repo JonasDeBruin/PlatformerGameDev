@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         
             if (jumpTime > 0)
             {
-                rb2d.AddForce(transform.up * 1.4f, ForceMode2D.Impulse);
+                rb2d.AddForce(transform.up * 1.4f * Time.deltaTime * 800, ForceMode2D.Impulse);
             }
         }
     }
