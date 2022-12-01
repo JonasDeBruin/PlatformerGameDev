@@ -9,6 +9,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private BoxCollider2D playerCollision;
     [SerializeField] private CircleCollider2D bulletCollision;
 
+    [SerializeField] private GameObject fireAudio;
+
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +20,7 @@ public class Shooting : MonoBehaviour
         {
             Instantiate(bullet, shootLoc.position, Quaternion.identity);
             Physics2D.IgnoreCollision(bulletCollision, playerCollision);
+            Instantiate(fireAudio, transform.position, Quaternion.identity);
         }
     }
 }
