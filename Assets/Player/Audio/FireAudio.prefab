@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5164698167301402204}
   - component: {fileID: 7545125450243583218}
+  - component: {fileID: -7812629306118689257}
   m_Layer: 0
   m_Name: FireAudio
   m_TagString: Untagged
@@ -44,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bdfb7ffd7d3373c4e9005e64320e8691, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -128,3 +129,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7812629306118689257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7454482147108239276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57213298ee5a97e47afa316576c9f666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
