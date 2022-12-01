@@ -136,5 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9fb9e108486db4595643168f91bb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb2d: {fileID: 3829482714820366731}
-  firePower: 5000
+  firePower: 30

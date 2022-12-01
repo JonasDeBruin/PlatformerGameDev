@@ -2,26 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class ShootingNew : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform shootLoc;
-
-    [SerializeField] private BoxCollider2D playerCollision;
-    [SerializeField] private CircleCollider2D bulletCollision;
+    [SerializeField] private Transform bulletTransform;
 
     [SerializeField] private GameObject fireAudio;
+
+    private Camera mainCam;
+    private Vector3 mousPos;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 rotation = mousPos - transform.position;
+        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
         if (Input.GetButtonDown("Fire1"))
         {
             //Create bullet
-            Instantiate(bullet, shootLoc.position, Quaternion.identity);
-            Physics2D.IgnoreCollision(bulletCollision, playerCollision);
+            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            //Physics2D.IgnoreCollision(bulletCollision, playerCollision);
 
             //Create audio
             Instantiate(fireAudio, transform.position, Quaternion.identity);
