@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -67,7 +69,17 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
             jumpTime = maxJumpTime;
         }
+        if (collision.gameObject.tag == "RespawnKill")
+        {
+            death();
+        }
     }
+
+    private void death()
+    {
+        Destroy(gameObject);
+    }
+
     void OnCollisionExit2D(Collision2D Collider)
     {
         if (Collider.gameObject.layer == 6)

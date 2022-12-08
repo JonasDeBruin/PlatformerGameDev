@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingNew : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
@@ -30,9 +30,8 @@ public class ShootingNew : MonoBehaviour
         {
             //Create bullet
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
-            //Physics2D.IgnoreCollision(bulletCollision, playerCollision);
 
-            //Create audio
+            //Create audiooo
             Instantiate(fireAudio, transform.position, Quaternion.identity);
         }
     }

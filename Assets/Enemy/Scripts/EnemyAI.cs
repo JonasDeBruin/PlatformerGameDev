@@ -10,10 +10,16 @@ public class EnemyAI : MonoBehaviour
     float dirX = 1;
     private bool dead = false;
 
+    public float Xpos;
+    public float Ypos;
+
     [SerializeField] private GameObject deathSound;
 
     private void Start()
     {
+        Xpos = transform.position.x;
+        Ypos = transform.position.x;
+
         if (Random.Range(1, 3) == 1)
         {
             dirX = -1;        
@@ -49,6 +55,11 @@ public class EnemyAI : MonoBehaviour
             dead = true;
             Instantiate(deathSound);
             Destroy(gameObject);
+        }
+
+        if (collision.gameObject.tag == "RespawnKill")
+        {
+            transform.position = new Vector2(Random.Range(-28, 24), 40);
         }
     }
 }
