@@ -19,10 +19,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject deathSound;
     [SerializeField] private PlayerMovement player;
     private Animator deathAnim;
-
+    private BoxCollider2D colliderEnemy;
     private void Start()
     {
-        deathAnim= GetComponent<Animator>();
+        deathAnim = GetComponent<Animator>();
+        colliderEnemy = GetComponent<BoxCollider2D>();
         Xpos = transform.position.x;
         Ypos = transform.position.x;
 
@@ -59,6 +60,7 @@ public class EnemyAI : MonoBehaviour
         //Death
         if (collision.gameObject.layer == 7)
         {
+            colliderEnemy.enabled = false;
             Instantiate(deathSound);
             deathAnim.SetBool("OnDeath", true);
 

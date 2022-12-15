@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8fa082793eb18a4fa518ebb64775bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 12
   Xpos: 0
   Ypos: 0
   deathSound: {fileID: 4152309131006845959, guid: 5fe3bcefc76ed6c4eb1fcd8f469f1149, type: 3}
