@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyAI : MonoBehaviour
 {
     public float speed = 10;
@@ -15,14 +16,13 @@ public class EnemyAI : MonoBehaviour
     public float Xpos;
     public float Ypos;
 
-
-
     [SerializeField] private GameObject deathSound;
     [SerializeField] private PlayerMovement player;
+    private Animator deathAnim;
 
     private void Start()
     {
-
+        deathAnim= GetComponent<Animator>();
         Xpos = transform.position.x;
         Ypos = transform.position.x;
 
@@ -59,10 +59,12 @@ public class EnemyAI : MonoBehaviour
         //Death
         if (collision.gameObject.layer == 7)
         {
+            Instantiate(deathSound);
+            deathAnim.SetBool("OnDeath", true);
+
             dead = true;
             player.AddScore();
-            Instantiate(deathSound);
-            Destroy(gameObject);
+            Destroy(gameObject, 1);
         }
 
         if (collision.gameObject.CompareTag("RespawnKill"))
