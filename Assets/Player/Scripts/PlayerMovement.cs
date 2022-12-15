@@ -1,6 +1,9 @@
 using JetBrains.Annotations;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,9 +23,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxJumpTime = 0.5f;
     private bool isGrounded;
 
+
+    public int score;
+    [SerializeField] private Text scoreText;
+
     // Update is called once per frame
     void Update()
     {
+        scoreText.text = score.ToString();
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundLayer);
         Jumping();
@@ -36,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void DirectionalMovement()
     {
         dirX = Input.GetAxis("Horizontal");
-        transform.Translate(transform.right * dirX * speed * Time.deltaTime);
+        transform.Translate(dirX * speed * Time.deltaTime * transform.right);
     }
 
 
@@ -44,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb2d.AddForce(Vector2.up * jumpForce * 200);
+            rb2d.AddForce(200 * jumpForce * Vector2.up);
         }
         
         jump = Input.GetAxis("Jump");
@@ -57,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         
             if (jumpTime > 0)
             {
-                rb2d.AddForce(transform.up * 1.4f * Time.deltaTime * 800, ForceMode2D.Impulse);
+                rb2d.AddForce(1.4f * 800 * Time.deltaTime * transform.up, ForceMode2D.Impulse);
             }
         }
     }
@@ -69,15 +77,10 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
             jumpTime = maxJumpTime;
         }
-        if (collision.gameObject.tag == "RespawnKill")
+        if (collision.gameObject.CompareTag("RespawnKill") || collision.gameObject.layer == 8)
         {
-            death();
+            Death();
         }
-    }
-
-    private void death()
-    {
-        Destroy(gameObject);
     }
 
     void OnCollisionExit2D(Collision2D Collider)
@@ -88,4 +91,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Death()
+    {
+       SceneManager.LoadScene("Death");
+    }
+    public void AddScore()
+    {
+        score++;
+    }
 }
