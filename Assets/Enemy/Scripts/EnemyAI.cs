@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
 
             Debug.DrawRay(transform.position, 0.6f * dirX * transform.right, Color.red, 0.1f);
 
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))
+            if (hit.collider != null && hit.collider.CompareTag("Ground") || (hit.collider != null && hit.collider.CompareTag("Enemy")))
             {
                 dirX *= -1f;
             }
