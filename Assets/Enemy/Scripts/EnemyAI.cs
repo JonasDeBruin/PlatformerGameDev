@@ -9,21 +9,31 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class EnemyAI : MonoBehaviour
 {
-    public float speed = 10;
+    //Components
+    private BoxCollider2D colliderEnemy;
+    private Renderer spriteRender;
+    private Animator deathAnim;
+    [SerializeField] private GameObject deathSound;
+    [SerializeField] private PlayerMovement player;
+
+    //Variables
+    [SerializeField] private float speed = 10;
+    [SerializeField] private Color deathColor;
     float dirX = 1;
     private bool dead = false;
 
+
+    //Position
     public float Xpos;
     public float Ypos;
 
-    [SerializeField] private GameObject deathSound;
-    [SerializeField] private PlayerMovement player;
-    private Animator deathAnim;
-    private BoxCollider2D colliderEnemy;
     private void Start()
     {
+        //Getting components
         deathAnim = GetComponent<Animator>();
         colliderEnemy = GetComponent<BoxCollider2D>();
+        spriteRender = GetComponent<Renderer>();
+
         Xpos = transform.position.x;
         Ypos = transform.position.x;
 
@@ -57,10 +67,11 @@ public class EnemyAI : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Death
+        //Death events
         if (collision.gameObject.layer == 7)
         {
             colliderEnemy.enabled = false;
+            spriteRender.material.color = deathColor;
             Instantiate(deathSound);
             deathAnim.SetBool("OnDeath", true);
 

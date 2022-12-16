@@ -91,6 +91,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        rb2d.AddForce(200 * 100 * Vector2.up);
+    }
+
     private void Death()
     {
        SceneManager.LoadScene("Death");
